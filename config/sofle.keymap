@@ -2,13 +2,6 @@
  * Copyright (c) 2020 The ZMK Contributors
  *
  * SPDX-License-Identifier: MIT
- *
- * -------------------------------------------------------------------------------------------
- *  Keymap básico para uso em Windows + Bluetooth
- *  - Layer 0: Base US (internacional)
- *  - Layer 1: Funções, setas e atalhos
- *  - Layer 2: Configurações e troca de perfis Bluetooth/USB
- * -------------------------------------------------------------------------------------------
  */
 
 #include <behaviors.dtsi>
@@ -17,19 +10,15 @@
 #include <dt-bindings/zmk/outputs.h>
 
 / {
-    // ---------------------------------------------------------------------------------------
-    // Comportamentos (Exemplo: Tap Dance para Shift + Caps Word)
-    // ---------------------------------------------------------------------------------------
     behaviors {
         shift_caps: tap_dance_0 {
             compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_0";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&sk LSHFT>, <&caps_word>;
         };
     };
-
-    // Sem blocos de conditional_layers, pois removemos tri-layers e Mac configs.
 
     keymap {
         compatible = "zmk,keymap";
@@ -37,14 +26,13 @@
         // ------------------------------------------------------------------------------
         // Layer 0 (Base) - US layout para Windows
         // ------------------------------------------------------------------------------
-        // Exemplo de "desenho" (pode ajustar de acordo com o seu hardware/físico):
         //
         // ┌───────┬──────┬──────┬──────┬──────┬──────┐              ┌──────┬──────┬──────┬──────┬──────┬──────┐
         // | ESC   |  1   |  2   |  3   |  4   |  5   |              |  6   |  7   |  8   |  9   |  0   | BSPC |
         // | TAB   |  Q   |  W   |  E   |  R   |  T   |              |  Y   |  U   |  I   |  O   |  P   |  [   |
         // | LCTRL |  A   |  S   |  D   |  F   |  G   |              |  H   |  J   |  K   |  L   |  ;   |  '   |
-        // | LSHFT |  Z   |  X   |  C   |  V   |  B   |  ...    ...   |  N   |  M   |  ,   |  .   |  /   | RSHFT|
-        //          | LGUI | LALT | [1]  | SPACE |               ...              | ENTER | [2]  | RALT  | RCTRL|
+        // | LSHFT |  Z   |  X   |  C   |  V   |  B   |  ...    ...  |  N   |  M   |  ,   |  .   |  /   | RSHFT|
+        //          | LGUI | LALT | [1]  | SPACE |               ...             | ENTER | [2]  | RALT  | RCTRL|
         // ------------------------------------------------------------------------------
         layer0 {
             bindings = <
@@ -54,15 +42,12 @@
                 &kp LSHIFT &kp Z     &kp X     &kp C     &kp V     &kp B   &none &none    &kp N     &kp M     &kp COMMA &kp DOT   &kp FSLH  &kp RSHIFT
                              &kp LGUI &kp LALT &mo 1     &kp SPACE        &kp ENTER &mo 2  &kp RALT &kp RCTRL
             >;
-            // Pode usar sensor-bindings ou não, se tiver giroscópio/trackball etc.
-            sensor-bindings = <>;
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp LC(PLUS) LC(MINUS)>;
         };
 
         // ------------------------------------------------------------------------------
         // Layer 1 (Funções, setas, acentos extras, etc.)
         // ------------------------------------------------------------------------------
-        // Aqui você pode colocar F-keys, setas de navegação e outras coisas úteis.
-        //
         // ┌──────┬──────┬──────┬──────┬──────┬──────┐              ┌──────┬──────┬──────┬──────┬──────┬──────┐
         // | GRV  | F1   | F2   | F3   | F4   | F5   |              | F6   | F7   | F8   | F9   | F10  | DEL  |
         // | CAPS | HOME | UP   | END  | PGUP |      |              |      |      |      |      |      |      |
@@ -92,7 +77,7 @@
                             &none &none &none &none
                 &none      &none &mo 2 &none &none &none
             >;
-            sensor-bindings = <>;
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp LC(PLUS) LC(MINUS)>;
         };
 
         // ------------------------------------------------------------------------------
@@ -125,7 +110,7 @@
                                &none &none &none &none
                 &none         &none &none &none &none &none
             >;
-            sensor-bindings = <>;
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp LC(PLUS) LC(MINUS)>;
         };
     };
 };
